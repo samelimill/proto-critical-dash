@@ -9,21 +9,38 @@
     <title>Javascript Quiz</title>
 </head>
 <body>
-    <h1>&#10100;Javascript Quiz&#10101;</h1>
     <button id="score-display">View High Scores</button>
     <div id="timer">
-        Time Remaining:<span id="time-left"></span>
+        <p>Time Remaining:</p>
+        <span id="time-left"></span>
     </div>
-    <button id="start">Start Quiz</button>
-    <main id="quiz-container">
-        <div id="question"></div>
-        <div id="answers">
-            <button id="A"></button>
-            <button id="B"></button>
-            <button id="C"></button>
-            <button id="D"></button>
+    <div id="container">
+        <div id="intro-container">
+            <p>Behold, a timed quiz on JavaScript topics. Each wrong answer will detract time from the timer in the top right corner; the final time will be your score. Click the button below to get started!</p>
+            <button id="start">Start Quiz</button>
         </div>
-    </main>
-    <div id="high-scores"></div>
+        <main id="quiz-container">
+            <div id="question"></div>
+            <div id="answers">
+                <button class="answer" id="A"></button>
+                <button class="answer" id="B"></button>
+                <button class="answer" id="C"></button>
+                <button class="answer" id="D"></button>
+            </div>
+            <div id="correct"></div>
+        </main>
+        <div id="high-scores">
+            <table id="scores">
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
+    <script src="assets/script.js"></script>
 </body>
 </html>

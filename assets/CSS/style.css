@@ -4,35 +4,52 @@
     margin: 0px;
 }
 
-h1 {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 20px;
-    font-family: Georgia, monospace;
-}
-
 
 #score-display {
-    margin-left: 20px;
+    margin: 20px;
 }
 
 #timer{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     float: right;
-    margin-right: 20px;
+    margin: 20px;
+    padding: 7px;
     width: 200px;
     height: 50px;
     border: 1px solid black;
     font-family: Georgia, monospace;
 }
 
-#start{
+#container {
     position: fixed;
-    left: 45%;
-    top: 25%;
+    top: 20%;
+    left: 20%;
+    right: 20%;
 }
 
-#quiz-container {
+#intro-container {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    font-family: Georgia, monospace;
+    font-size: 24px;
+}
+
+#start{
+    background-color: #51DCA7;
+    margin: 10px 60px 0 60px;
+    height: 40px;
+}
+
+#start:active{
+    background-color: #6DEABAd;
+}
+
+#quiz-container{
+    visibility: hidden;
+}
+#high-scores{
     visibility: hidden;
 }
