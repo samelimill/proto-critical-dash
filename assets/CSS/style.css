@@ -7,6 +7,8 @@
 
 #score-display {
     margin: 20px;
+    width: 200px;
+    height: 50px;
 }
 
 #timer{
@@ -23,33 +25,69 @@
 }
 
 #container {
-    position: fixed;
+    position: absolute;
     top: 20%;
     left: 20%;
     right: 20%;
 }
 
 #intro-container {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    margin: 50px;
     font-family: Georgia, monospace;
     font-size: 24px;
+    border: 1px dotted black;
+}
+
+#intro-container p {
+    padding: 20px;
+}
+
+#quiz-container {
+    position: absolute;
+    width: 100%;
+    padding: 20px;
+    border: 1px dotted black;
+}
+
+#name-entry {
+    position: absolute;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1 fr 1 fr;
+}
+
+#form {
+    border: 1px black solid;
+    padding: 20px;
+}
+
+#name-input {
+    width: 50px;
+}
+
+#answers{
+    display: flex;
+    flex-direction: column;
+    font-family: Georgia, monospace;
+}
+.answer {
+    margin: 20px 40px 20px 40px;
 }
 
 #start{
     background-color: #51DCA7;
-    margin: 10px 60px 0 60px;
+    margin: 20px;
     height: 40px;
 }
 
 #start:active{
-    background-color: #6DEABAd;
+    background-color: #6DEABA;
 }
 
-#quiz-container{
-    visibility: hidden;
-}
-#high-scores{
+#quiz-container,
+#high-scores,
+#name-entry {
     visibility: hidden;
 }
