@@ -45,12 +45,14 @@ var activeQ;
 
 // Begin quiz on button click
 startButton.addEventListener('click', startQuiz);
+
+//Set up sequence of events and event listeners for the button click
 function startQuiz(){
     introContainer.style.visibility = 'hidden';
     quizContainer.style.visibility = 'visible';
     activeQ = 0;
     displayQuestions();
-    time = 20;
+    time = 80;
     answerA.addEventListener('click', function() {checkAnswer(questions[activeQ].answers[0])});
     answerB.addEventListener('click', function() {checkAnswer(questions[activeQ].answers[1])});
     answerC.addEventListener('click', function() {checkAnswer(questions[activeQ].answers[2])});
@@ -60,26 +62,19 @@ function startQuiz(){
 };
 
 function timer(){
-    time--;
-    if (time<=0){
-        gameOver();
+    if (time<=0 || activeQ===6){
+        nameEntry();
         clearInterval(timeLeft);
+        return;   
     }
+    time--;
     showTime();
-};
-
-function gameOver(){
-    nameEntry();
 };
 
 function showTime() {
     liveTime.innerHTML = time;
 };
 
-function storeScore(){
-    localStorage.setItem('name', nameForm.textContent);
-    localStorage.setItem('score', latestScore.textContent);
-}
 
 // Show active question
 function displayQuestions() {
@@ -99,7 +94,8 @@ function checkAnswer(liveChoice){
         document.getElementById('correct').innerHTML = "Correct!";
     } else {
         document.getElementById('correct').innerHTML = "Wrong!";
-        time-10;
+        time -= 10;
+        showTime();
     }
     activeQ++;
     displayQuestions();
@@ -107,16 +103,27 @@ function checkAnswer(liveChoice){
 }
 
 
-// name entry for high scores
+// Variables for name entry form and score
 var latestScore = document.getElementById('latest-score');
-var nameForm = document.querySelector('#form.input')
+var nameForm = document.querySelector('#form');
+var nameInput = document.getElementById('name-input');
 
+// Display name entry form and captu
 function nameEntry() {
     quizContainer.style.visibility = 'hidden';
     scoreEntry.style.visibility = 'visible';
     latestScore.textContent = time;
-    nameForm.addEventListener('submit', storeScore());
+    liveTime.innerHTML = 0;
+    nameForm.addEventListener('submit', storeScore);
 };
 
+// Capture user score and initials to local storage
+function storeScore(){
+    localStorage.setItem('name', nameInput.value);
+    localStorage.setItem('score', latestScore.textContent);
+};
 
+function renderHighScores() {
+    
+}
 
