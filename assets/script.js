@@ -21,20 +21,29 @@ let questions = [
 ];
 
 // Variables for quiz button and text elements
-var liveQuestion= document.getElementById('question');
-var answerA= document.getElementById('A');
-var answerB= document.getElementById('B');
-var answerC= document.getElementById('C');
-var answerD= document.getElementById('D');
-var answerContainer= document.getElementById('answers');
-
-var highScoreBtn = document.getElementById('score-display');
+const liveQuestion= document.getElementById('question');
+const answerA= document.getElementById('A');
+const answerB= document.getElementById('B');
+const answerC= document.getElementById('C');
+const answerD= document.getElementById('D');
+const answerContainer= document.getElementById('answers');
+const highScoreBtn = document.getElementById('score-display');
+const backToStart = document.getElementById('back-to-start');
 
 // Hideable cards for introduction, the quiz itself, and high scores
-let introContainer=document.getElementById('intro-container');
-let quizContainer= document.getElementById('quiz-container');
-let scoreEntry = document.getElementById('form');
-let highScores = document.getElementById('scores');
+const introContainer=document.getElementById('intro-container');
+const quizContainer= document.getElementById('quiz-container');
+const scoreEntry = document.getElementById('form');
+const highScores = document.getElementById('scores');
+
+// Link to timer and start button
+let liveTime= document.getElementById('time-left');
+let startButton = document.getElementById('start');
+
+// Establish global variables for timer and questions
+var timeLeft;
+var time;
+var activeQ;
 
 function hideCards(){
     introContainer.style.display='none';
@@ -43,21 +52,13 @@ function hideCards(){
     highScores.style.display='none';
 }
 
+
+
 loadIntro();
 function loadIntro(){
     hideCards();
     introContainer.style.display='flex';
 }
-
-
-// Link to timer and start button
-var liveTime= document.getElementById('time-left');
-let startButton = document.getElementById('start');
-
-// Establish global variables for timer and questions
-var timeLeft;
-var time;
-var activeQ;
 
 // Begin quiz on button click
 startButton.addEventListener('click', startQuiz);
@@ -92,6 +93,7 @@ function showTime() {
 };
 
 
+highScoreBtn.addEventListener('click', showHighScores);
 // Show active question
 function displayQuestions() {
     if (activeQ === 6){
@@ -105,14 +107,24 @@ function displayQuestions() {
     answerD.innerHTML = questions[activeQ].answers[3];
 };
 
-// Check chosen answer 
+const resultBox = document.getElementById('correct');
+function hideResult(){
+    resultBox.style.display = 'none';
+}
+
+// Check chosen answer and display result
 function checkAnswer(liveChoice){
+    resultBox.style.display = 'block';
     if (liveChoice === questions[activeQ].correct){
-        document.getElementById('correct').innerHTML = "Correct!";
+        resultBox.innerHTML = "Correct!";
+        resultBox.style.color = 'green';
+        setTimeout(hideResult, 1500);
     } else {
-        document.getElementById('correct').innerHTML = "Wrong!";
+        resultBox.innerHTML = "Wrong!";
+        resultBox.style.color = 'red';
         time -= 10;
         showTime();
+        setTimeout(hideResult, 1500);
     }
     activeQ++;
     displayQuestions();
@@ -122,7 +134,7 @@ function checkAnswer(liveChoice){
 
 // Variables for name entry form and score
 var latestScore = document.getElementById('latest-score');
-var nameForm = document.querySelector('#form');
+var nameForm = document.getElementById('form');
 var nameInput = document.getElementById('name-input');
 
 // Display name entry form and captu
@@ -134,7 +146,67 @@ function nameEntry() {
     scoreEntry.addEventListener('submit', storeScore);
 };
 
-function storeScore(){
+
+function storeScore(event){    
+    event.preventDefault();
+    if(!nameInput.value){
+        alert('Please enter your initials before submitting.');
+        nameEntry();
+        return;
+    }
+    let newScore = {
+        name: nameInput.value,
+        timeScore: latestScore.textContent
+    };
+    addToScores(newScore);
+    showHighScores();
+};
+
+function addToScores(newScore){
+    var storedHighScores = pullHighScores();
+    console.log(storedHighScores);
+    storedHighScores.push(newScore);
+    localStorage.setItem('storedHighScores', JSON.stringify(storedHighScores));
+};
+
+var storedHighScores = [];
+function pullHighScores(){
+    let highScores = localStorage.getItem('storedHighScores');
+    if (highScores === null) {
+        storedHighScores = [];
+    } else {
+        storedHighScores = JSON.parse(highScores);
+    }
+    // sorts high scores from high to low
+    storedHighScores.sort(function(a,b){
+        return b.score - a.score;
+    });
+    return storedHighScores;
+}; 
+
+
+function showHighScores(){
     hideCards();
-    highScores.style.display='block';
-}
+    highScores.style.display='flex';
+    var totalScore = sortScores();
+    let scoresBody = document.getElementById('scores-body');
+    scoresBody.innerHTML = "";
+    for (var i = 0; i < totalScore.length; i++){
+        let score = totalScore[i];
+        let appendScores = document.createElement('li');
+        appendScores.textContent = score.name + ' === ' + score.timeScore;
+        scoresBody.append(appendScores);
+    }
+    backToStart.addEventListener('click', loadIntro);
+    liveTime.innerHTML = "";
+    clearInterval(timeLeft);
+
+};
+
+function sortScores(){
+    var scoreFunk = pullHighScores();
+    scoreFunk.sort(function (a, b){
+        return b.timeScore - a.timeScore;
+    });
+    return scoreFunk;
+};

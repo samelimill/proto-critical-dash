@@ -19,16 +19,15 @@
             <p>Behold, a timed quiz on JavaScript topics. Each wrong answer will detract time from the timer in the top right corner; the final time will be your score. Click the button below to get started!</p>
             <button id="start">Start Quiz</button>
         </div>
-            <div id="quiz-container">
-                <div id="question"></div>
-                <div id="answers">
-                    <button class="answer" id="A"></button>
-                    <button class="answer" id="B"></button>
-                    <button class="answer" id="C"></button>
-                    <button class="answer" id="D"></button>
-                </div>
-                <div id="correct"></div>
+        <div id="quiz-container">
+            <div id="question"></div>
+            <div id="answers">
+                <button class="answer" id="A"></button>
+                <button class="answer" id="B"></button>
+                <button class="answer" id="C"></button>
+                <button class="answer" id="D"></button>
             </div>
+        </div>
         <div id="name-entry">
             <form id="form">
                 <label>Initials:</label><br>
@@ -38,14 +37,12 @@
                 <input type="submit" value="Submit">
             </form>        
         </div>
-        <div id="high-scores">
-            <table id="scores">
-                <thead>
-                    <th>Name</th>
-                    <th>Score</th>
-                </thead>
-                <tbody></tbody>
-            </table>
+        <div id="correct"></div>
+        <div id="scores">
+            <h2>SCORES OF GLORY</h2>
+            <ol id="scores-body"></ol>
+            <button id="clear-scores">Clear High Scores</button>
+            <button id="back-to-start">Return</button>
         </div>
     </div>
     <script src="assets/script.js"></script>

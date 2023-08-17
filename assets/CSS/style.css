@@ -26,7 +26,7 @@
 
 #container {
     position: absolute;
-    top: 20%;
+    top: 200px;
     left: 20%;
     right: 20%;
 }
@@ -49,11 +49,6 @@
     border: 1px dotted black;
 }
 
-#name-entry {
-
-    width: 100%;
-}
-
 #form {
     border: 1px black solid;
     padding: 20px;
@@ -63,22 +58,44 @@
     width: 50px;
 }
 
-#answers{
+#answers{ 
     display: flex;
     flex-direction: column;
     font-family: Georgia, monospace;
 }
-.answer {
+
+.answer {/*these are the answer boxes */
     margin: 20px 40px 20px 40px;
 }
 
-#start{
+#scores {
+    display: flex;
+    flex-direction: column;
+    border: 1px dotted black;
+}
+
+#scores h2 {
+    align-self: center;
+    text-decoration: underline;
+    padding: 20px;
+    font-family:Impact, 'Arial Narrow Bold', sans-serif;
+    font-size: 47px;
+}
+
+#scores-body {
+    align-self: center;
+}
+
+button{
     background-color: #51DCA7;
     margin: 20px;
     height: 40px;
 }
 
-#start:active{
+button:active{
     background-color: #6DEABA;
 }
 
+button:hover{
+    border: 1px solid blue;
+}
