@@ -27,6 +27,7 @@ const answerB= document.getElementById('B');
 const answerC= document.getElementById('C');
 const answerD= document.getElementById('D');
 const answerContainer= document.getElementById('answers');
+const resultBox = document.getElementById('correct');
 const highScoreBtn = document.getElementById('score-display');
 
 // Hideable cards for introduction, the quiz itself, and high scores
@@ -44,6 +45,7 @@ var timeLeft;
 var time;
 var activeQ;
 
+// Function to show different cards - cards are un-noned by each card's JS
 function hideCards(){
     introContainer.style.display='none';
     quizContainer.style.display='none';
@@ -51,8 +53,7 @@ function hideCards(){
     highScores.style.display='none';
 }
 
-
-
+// Shows intro card when page loads
 loadIntro();
 function loadIntro(){
     hideCards();
@@ -69,6 +70,7 @@ function startQuiz(){
     activeQ = 0;
     displayQuestions();
     time = 80;
+    //Event listeners for each answer option
     answerA.addEventListener('click', function() {checkAnswer(questions[activeQ].answers[0])});
     answerB.addEventListener('click', function() {checkAnswer(questions[activeQ].answers[1])});
     answerC.addEventListener('click', function() {checkAnswer(questions[activeQ].answers[2])});
@@ -77,8 +79,9 @@ function startQuiz(){
     showTime();
 };
 
+// Timer function cuts off quiz at either timeout or end of questions
 function timer(){
-    if (time<=0 || activeQ===6){
+    if (time<=0 || activeQ===questions.length){
         nameEntry();
         clearInterval(timeLeft);
         return;   
@@ -87,17 +90,18 @@ function timer(){
     showTime();
 };
 
+// Updates timer display 
 function showTime() {
     liveTime.innerHTML = time;
 };
 
-
+// Event listener for 'Vie High Scores' button
 highScoreBtn.addEventListener('click', showHighScores);
 
 // Show active question
 function displayQuestions() {
     console.log(activeQ);
-    if (activeQ === 6){
+    if (activeQ === questions.length){
         nameEntry();
         return;
     }
@@ -107,12 +111,6 @@ function displayQuestions() {
     answerC.innerHTML = questions[activeQ].answers[2];
     answerD.innerHTML = questions[activeQ].answers[3];
 };
-
-const resultBox = document.getElementById('correct');
-
-function hideResult(){
-    resultBox.style.display = 'none';
-}
 
 // Check chosen answer and display result
 function checkAnswer(liveChoice){
@@ -133,23 +131,31 @@ function checkAnswer(liveChoice){
     return;
 }
 
+// Function to hide the answer result
+function hideResult(){
+    resultBox.style.display = 'none';
+}
 
 // Variables for name entry form and score
 var latestScore = document.getElementById('latest-score');
 var nameForm = document.getElementById('form');
 var nameInput = document.getElementById('name-input');
 
-// Display name entry form and captu
+// Display name entry form, shuts down timer, and captures user score
 function nameEntry() {
     hideCards();
     scoreEntry.style.display='flex';
     latestScore.textContent = time;
-    liveTime.innerHTML = 0;
+    liveTime.innerHTML = "";
 };
+
+// Event listener for score submission button
 scoreEntry.addEventListener('submit', storeScore);
 
+// Sequence to add user name and score to local storage and show high score board
 function storeScore(event){    
     event.preventDefault();
+    //Alerts the user if they have yet to input their initials
     if(!nameInput.value){
         alert('Please enter your initials before submitting.');
         nameEntry();
@@ -163,36 +169,34 @@ function storeScore(event){
     showHighScores();
 };
 
+// Adds new score to score array in local storage
 function addToScores(newScore){
     var storedHighScores = pullHighScores();
-    console.log(storedHighScores);
     storedHighScores.push(newScore);
     localStorage.setItem('storedHighScores', JSON.stringify(storedHighScores));
 };
 
+// Empty array for the stored high scores
 var storedHighScores = [];
 
+// Grabs previous high scores from local storage
 function pullHighScores(){
     let highScores = localStorage.getItem('storedHighScores');
     if (highScores === '') {
         storedHighScores = [];
     } else {
         storedHighScores = JSON.parse(highScores);
-        
-    // sorts high scores from high to low 
-        storedHighScores.sort(function(a,b){
-            return b.score - a.score;
-        });
     }
     return storedHighScores;
 }; 
 
-
+// Event listeners for buttons in the high score card
 const backToStart = document.getElementById('back-to-start');
-const getRidOfIt = document.getElementById('clear-scores')
-getRidOfIt.addEventListener('click', clearScores)
+const getRidOfIt = document.getElementById('clear-scores');
+getRidOfIt.addEventListener('click', clearScores);
 backToStart.addEventListener('click', function() {window.location.reload(true)});
 
+// High Score display - constructs a list of string in local storage
 function showHighScores(){
     hideCards();
     highScores.style.display='flex';
@@ -205,11 +209,12 @@ function showHighScores(){
         appendScores.textContent = score.name + ' === ' + score.timeScore;
         scoresBody.append(appendScores);
     }
- //   
+    // Shuts down timer if user views High Scores during the quiz
     liveTime.innerHTML = "";
     clearInterval(timeLeft);
 };
 
+// Sorts parsed score array by score
 function sortScores(){
     var scoreFunk = pullHighScores();
     scoreFunk.sort(function (a, b){
@@ -218,7 +223,8 @@ function sortScores(){
     return scoreFunk;
 };
 
- function clearScores(){
+// Function to clear stored scores and empties high score board
+function clearScores(){
     localStorage.setItem('storedHighScores', "")
     showHighScores();
 };

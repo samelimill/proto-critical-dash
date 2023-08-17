@@ -12,7 +12,7 @@
     height: 50px;
 }
 
-/* Styling for coundown clock */
+/* Styling for countdown clock */
 #timer{
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@
     right: 20%;
 }
 
-
+/* Styling for cards until ln.199 */
 #intro-container {
     display: flex;
     flex-direction: column;
@@ -53,8 +53,6 @@
 #intro-container p {
     background-color: white;
     padding: 20px;
-    text-align: justify;
-    text-justify: inter-word;
 }
 
 #quiz-container {
@@ -120,6 +118,11 @@
     font-size: 47px;
 }
 
+/* Styling for high score list */
+#scores div {
+    background-color: white;
+}
+
 #scores-body {
     background-color: white;
     align-self: center;
@@ -129,6 +132,7 @@
     background-color: white;
 }
 
+/* button behavior */
 button,
 #submit {
     background-color: #afb0b058;
@@ -145,6 +149,7 @@ button:hover,
 #submit:hover {
     border: 1px solid blue;
     background-color: #a1eed1;
+    transition-duration: 1s;
 }
 
 #correct {
@@ -154,18 +159,20 @@ button:hover,
     padding: 10px 0 0 20px;
 }
 
-/* Margin for answer buttons */
+/* Margin and font for answer buttons */
 .answer {
     margin: 20px 40px 20px 40px;
     font-family: Georgia, monospace;
 }
 
+/* Establishes size for buttons */
 #back-to-start,
 #clear-scores,
 #submit {
-    width: 200px;
+    width: 150px;
 }
 
+/* Some basic viewport changes */
 @media screen and (min-width: 900px){
     #intro-container * {
         margin: 0px 60px 20px 60px;

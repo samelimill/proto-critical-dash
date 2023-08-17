@@ -33,7 +33,7 @@
                 <button class="answer" id="D"></button>
             </div>
         </div>
-        
+        <!-- Establishes form for user input of initials and latest score -->
         <div id="name-entry">
             <form id="form">
                 <label>Initials:</label><br>
@@ -43,12 +43,17 @@
                 <input id='submit' type="submit" value="Submit">
             </form>        
         </div>
+        <!-- Result text populates here, I preferred how it looked outside of the quiz container-->
         <div id="correct"></div>
+        <!-- Establishes list to be populated by high scores -->
         <div id="scores">
             <h2>SCORES OF GLORY</h2>
             <ol id="scores-body"></ol>
-            <button id="clear-scores">Clear High Scores</button>
-            <button id="back-to-start">Return</button>
+            <!-- Div places buttons side by side insteaed of in the flex column -->
+            <div>
+                <button id="clear-scores">Clear High Scores</button>
+                <button id="back-to-start">Return</button>
+            </div>        
         </div>
     </div>
     <script src="assets/script.js"></script>
