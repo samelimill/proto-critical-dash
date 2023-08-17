@@ -10,7 +10,7 @@ let questions = [
     answers: ["In the head, alongside the CSS link","Between the body and the closing HTML tag","Directly above the closing body tag","Directly beneath the site header"],
     correct:"Between the body and the closing HTML tag",},
     {questionText:"What can not be achieved through JavaScript?",
-    answers: ["Placing text into an HTML <div> container","Providing pop-up alerts to the user","Store a raw Boolean value to local storage","None of the above"],
+    answers: ["Placing text into an HTML container","Providing pop-up alerts to the user","Store a raw Boolean value to local storage","None of the above"],
     correct:"Store a raw Boolean value to local storage",},
     {questionText:"The **= operator performs what function?",
     answers: ["Performs exponentiation on the left operand by the right operand","Provides the remainder from an operand and a divisor","Multiplies a number by the same number","Returns the square root of an operand"],
@@ -93,8 +93,10 @@ function showTime() {
 
 
 highScoreBtn.addEventListener('click', showHighScores);
+
 // Show active question
 function displayQuestions() {
+    console.log(activeQ);
     if (activeQ === 6){
         nameEntry();
         return;
@@ -107,6 +109,7 @@ function displayQuestions() {
 };
 
 const resultBox = document.getElementById('correct');
+
 function hideResult(){
     resultBox.style.display = 'none';
 }
@@ -168,6 +171,7 @@ function addToScores(newScore){
 };
 
 var storedHighScores = [];
+
 function pullHighScores(){
     let highScores = localStorage.getItem('storedHighScores');
     if (highScores === '') {
@@ -187,7 +191,8 @@ function pullHighScores(){
 const backToStart = document.getElementById('back-to-start');
 const getRidOfIt = document.getElementById('clear-scores')
 getRidOfIt.addEventListener('click', clearScores)
-backToStart.addEventListener('click', loadIntro);
+backToStart.addEventListener('click', function() {window.location.reload(true)});
+
 function showHighScores(){
     hideCards();
     highScores.style.display='flex';

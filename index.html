@@ -9,16 +9,21 @@
     <title>Javascript Quiz</title>
 </head>
 <body>
-    <button id="score-display">View High Scores</button>
-    <div id="timer">
-        <p>Time Remaining:</p>
-        <span id="time-left"></span>
+    <!-- Container for high score button and timer -->
+    <div id="top-bar">
+        <button id="score-display">View High Scores</button>
+        <div id="timer">
+            <p>Time Remaining:</p>
+            <span id="time-left"></span>
+        </div>
     </div>
+    <!-- Container for all subsequent cards - sets uniform margins -->
     <div id="container">
         <div id="intro-container">
             <p>Behold, a timed quiz on JavaScript topics. Each wrong answer will detract time from the timer in the top right corner; the final time will be your score. Click the button below to get started!</p>
             <button id="start">Start Quiz</button>
         </div>
+        <!-- Quiz container holds empty fields to be filled by JS-->
         <div id="quiz-container">
             <div id="question"></div>
             <div id="answers">
@@ -28,13 +33,14 @@
                 <button class="answer" id="D"></button>
             </div>
         </div>
+        
         <div id="name-entry">
             <form id="form">
                 <label>Initials:</label><br>
                 <input id="name-input" type="text" name="initials" placeholder="AAA"><br>
                 <label>Score:</label><br>
                 <div id="latest-score"></div>
-                <input type="submit" value="Submit">
+                <input id='submit' type="submit" value="Submit">
             </form>        
         </div>
         <div id="correct"></div>
