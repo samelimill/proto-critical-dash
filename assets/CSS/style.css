@@ -32,7 +32,6 @@
 }
 
 #intro-container {
-    position: absolute;
     display: flex;
     flex-direction: column;
     font-family: Georgia, monospace;
@@ -45,17 +44,14 @@
 }
 
 #quiz-container {
-    position: absolute;
     width: 100%;
     padding: 20px;
     border: 1px dotted black;
 }
 
 #name-entry {
-    position: absolute;
+
     width: 100%;
-    display: grid;
-    grid-template-columns: 1 fr 1 fr;
 }
 
 #form {
@@ -86,8 +82,3 @@
     background-color: #6DEABA;
 }
 
-#quiz-container,
-#high-scores,
-#name-entry {
-    visibility: hidden;
-}

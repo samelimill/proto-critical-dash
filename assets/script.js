@@ -28,11 +28,27 @@ var answerC= document.getElementById('C');
 var answerD= document.getElementById('D');
 var answerContainer= document.getElementById('answers');
 
+var highScoreBtn = document.getElementById('score-display');
+
 // Hideable cards for introduction, the quiz itself, and high scores
 let introContainer=document.getElementById('intro-container');
 let quizContainer= document.getElementById('quiz-container');
-let scoreEntry = document.getElementById('name-entry');
-let highScores = document.getElementById('high-scores');
+let scoreEntry = document.getElementById('form');
+let highScores = document.getElementById('scores');
+
+function hideCards(){
+    introContainer.style.display='none';
+    quizContainer.style.display='none';
+    scoreEntry.style.display='none';
+    highScores.style.display='none';
+}
+
+loadIntro();
+function loadIntro(){
+    hideCards();
+    introContainer.style.display='flex';
+}
+
 
 // Link to timer and start button
 var liveTime= document.getElementById('time-left');
@@ -48,8 +64,8 @@ startButton.addEventListener('click', startQuiz);
 
 //Set up sequence of events and event listeners for the button click
 function startQuiz(){
-    introContainer.style.visibility = 'hidden';
-    quizContainer.style.visibility = 'visible';
+    hideCards();
+    quizContainer.style.display='block';
     activeQ = 0;
     displayQuestions();
     time = 80;
@@ -80,6 +96,7 @@ function showTime() {
 function displayQuestions() {
     if (activeQ === 6){
         nameEntry();
+        return;
     }
     liveQuestion.textContent = questions[activeQ].questionText;
     answerA.innerHTML = questions[activeQ].answers[0];
@@ -110,20 +127,14 @@ var nameInput = document.getElementById('name-input');
 
 // Display name entry form and captu
 function nameEntry() {
-    quizContainer.style.visibility = 'hidden';
-    scoreEntry.style.visibility = 'visible';
+    hideCards();
+    scoreEntry.style.display='block';
     latestScore.textContent = time;
     liveTime.innerHTML = 0;
-    nameForm.addEventListener('submit', storeScore);
+    scoreEntry.addEventListener('submit', storeScore);
 };
 
-// Capture user score and initials to local storage
 function storeScore(){
-    localStorage.setItem('name', nameInput.value);
-    localStorage.setItem('score', latestScore.textContent);
-};
-
-function renderHighScores() {
-    
+    hideCards();
+    highScores.style.display='block';
 }
-

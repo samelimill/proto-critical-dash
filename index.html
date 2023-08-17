@@ -19,16 +19,16 @@
             <p>Behold, a timed quiz on JavaScript topics. Each wrong answer will detract time from the timer in the top right corner; the final time will be your score. Click the button below to get started!</p>
             <button id="start">Start Quiz</button>
         </div>
-        <main id="quiz-container">
-            <div id="question"></div>
-            <div id="answers">
-                <button class="answer" id="A"></button>
-                <button class="answer" id="B"></button>
-                <button class="answer" id="C"></button>
-                <button class="answer" id="D"></button>
+            <div id="quiz-container">
+                <div id="question"></div>
+                <div id="answers">
+                    <button class="answer" id="A"></button>
+                    <button class="answer" id="B"></button>
+                    <button class="answer" id="C"></button>
+                    <button class="answer" id="D"></button>
+                </div>
+                <div id="correct"></div>
             </div>
-            <div id="correct"></div>
-        </main>
         <div id="name-entry">
             <form id="form">
                 <label>Initials:</label><br>
@@ -40,10 +40,11 @@
         </div>
         <div id="high-scores">
             <table id="scores">
-                <tr>
+                <thead>
                     <th>Name</th>
                     <th>Score</th>
-                </tr>
+                </thead>
+                <tbody></tbody>
             </table>
         </div>
     </div>
