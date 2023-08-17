@@ -28,7 +28,6 @@ const answerC= document.getElementById('C');
 const answerD= document.getElementById('D');
 const answerContainer= document.getElementById('answers');
 const highScoreBtn = document.getElementById('score-display');
-const backToStart = document.getElementById('back-to-start');
 
 // Hideable cards for introduction, the quiz itself, and high scores
 const introContainer=document.getElementById('intro-container');
@@ -140,12 +139,11 @@ var nameInput = document.getElementById('name-input');
 // Display name entry form and captu
 function nameEntry() {
     hideCards();
-    scoreEntry.style.display='block';
+    scoreEntry.style.display='flex';
     latestScore.textContent = time;
     liveTime.innerHTML = 0;
-    scoreEntry.addEventListener('submit', storeScore);
 };
-
+scoreEntry.addEventListener('submit', storeScore);
 
 function storeScore(event){    
     event.preventDefault();
@@ -172,19 +170,24 @@ function addToScores(newScore){
 var storedHighScores = [];
 function pullHighScores(){
     let highScores = localStorage.getItem('storedHighScores');
-    if (highScores === null) {
+    if (highScores === '') {
         storedHighScores = [];
     } else {
         storedHighScores = JSON.parse(highScores);
+        
+    // sorts high scores from high to low 
+        storedHighScores.sort(function(a,b){
+            return b.score - a.score;
+        });
     }
-    // sorts high scores from high to low
-    storedHighScores.sort(function(a,b){
-        return b.score - a.score;
-    });
     return storedHighScores;
 }; 
 
 
+const backToStart = document.getElementById('back-to-start');
+const getRidOfIt = document.getElementById('clear-scores')
+getRidOfIt.addEventListener('click', clearScores)
+backToStart.addEventListener('click', loadIntro);
 function showHighScores(){
     hideCards();
     highScores.style.display='flex';
@@ -197,10 +200,9 @@ function showHighScores(){
         appendScores.textContent = score.name + ' === ' + score.timeScore;
         scoresBody.append(appendScores);
     }
-    backToStart.addEventListener('click', loadIntro);
+ //   
     liveTime.innerHTML = "";
     clearInterval(timeLeft);
-
 };
 
 function sortScores(){
@@ -209,4 +211,9 @@ function sortScores(){
         return b.timeScore - a.timeScore;
     });
     return scoreFunk;
+};
+
+ function clearScores(){
+    localStorage.setItem('storedHighScores', "")
+    showHighScores();
 };
